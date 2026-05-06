@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account Information</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #cfd8dc;
+      --card: #eceff1;
+      --accent: #2e4057;
+      --accent2: #546e8a;
+      --label: #1a2a38;
+      --value: #2e4057;
+      --border: #b0bec5;
+      --header-bg: #2e4057;
+      --header-text: #eceff1;
+      --section-bg: #37474f;
+      --section-text: #eceff1;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    /* ── Header ── */
+    .header-card {
+      background: var(--header-bg);
+      color: var(--header-text);
+      border-radius: 18px;
+      padding: 1.6rem 2rem;
+      text-align: center;
+    }
+
+    .header-card .phone {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .header-card .qa-row {
+      margin-top: 0.6rem;
+    }
+
+    .header-card .q-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .header-card .q-value {
+      font-size: 0.95rem;
+      opacity: 0.95;
+      margin-top: 0.1rem;
+    }
+
+    /* ── Section title ── */
+    .section-title {
+      background: var(--section-bg);
+      color: var(--section-text);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      text-align: center;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Account card ── */
+    .account-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .account-card:hover {
+      box-shadow: 0 4px 20px rgba(46,64,87,0.15);
+    }
+
+    .account-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent2), var(--accent));
+      border-radius: 4px 0 0 4px;
+    }
+
+    .account-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--label);
+      padding-left: 0.4rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      padding-left: 0.4rem;
+    }
+
+    .field-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent2);
+    }
+
+    .field-value {
+      font-size: 0.88rem;
+      color: var(--value);
+      word-break: break-all;
+    }
+
+    .field-value.password {
+      background: rgba(46,64,87,0.08);
+      border-radius: 6px;
+      padding: 0.2rem 0.5rem;
+      display: inline-block;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Email section ── */
+    .email-block {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .email-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .email-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .email-addr {
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .email-pass {
+      font-size: 0.85rem;
+      color: var(--value);
+      background: rgba(46,64,87,0.08);
+      border-radius: 5px;
+      padding: 0.15rem 0.4rem;
+      display: inline-block;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ── HEADER ── -->
+  <div class="header-card">
+    <div class="phone">09811941982</div>
+    <div class="qa-row">
+      <div class="q-title">Question 1</div>
+      <div class="q-value">San Jose Elementary School</div>
+    </div>
+    <div class="qa-row">
+      <div class="q-title">Question 2</div>
+      <div class="q-value">Mia &nbsp;·&nbsp; 407201861026</div>
+    </div>
+  </div>
+
+  <!-- ══════════════ FACEBOOK ══════════════ -->
+  <div class="section-title">Facebook</div>
+
+  <div class="account-card">
+    <div class="account-name">Jason Del Rosario Ayson</div>
+    <div class="field">
+      <span class="field-label">No.</span>
+      <span class="field-value">639362781621 / aysonjason19@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">j@yr@yson0190108delrosario18</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">Jason Del Rosario</div>
+    <div class="field">
+      <span class="field-label">No.</span>
+      <span class="field-value">jayr019081@gmail.com / aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">j@yr_@t_3ur0p3‐d3lros4r1o</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">Dump Jayr</div>
+    <div class="field">
+      <span class="field-label">No.</span>
+      <span class="field-value">dumpjayr7@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">dumpnijasonjayr</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ TIKTOK ══════════════ -->
+  <div class="section-title">TikTok</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Name</span>
+      <span class="field-value">@n00sp / aysonjason26gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">@dalrosariojayr20</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Name</span>
+      <span class="field-value">@lzd.j</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value">aysonjason19@gmail.com</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ INSTAGRAM ══════════════ -->
+  <div class="section-title">Instagram</div>
+
+  <div class="account-card">
+    <div class="account-name">jayr_del_rosario</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">delrosarioayson</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">macs.son</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">dumpnijazuunn</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">jim109081</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value">jayr019081@gmail.com / jason40720</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ EMAIL ══════════════ -->
+  <div class="section-title">Email</div>
+
+  <div class="email-block">
+    <div class="email-row">
+      <span class="email-addr">aysonjason26@gmail.com</span>
+      <span class="email-pass">jasonayson0119 / 4r32h1d4l90</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">aysonjasonjr467@gmail.com</span>
+      <span class="email-pass">jason011908</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">aysonjason19@gmail.com</span>
+      <span class="email-pass">jason200819 / 4rt3M12h1d4l90</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">jayr019081@gmail.com</span>
+      <span class="email-pass">4p0l0h1d4l90</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">jasondaysonjayr@gmail.com</span>
+      <span class="email-pass">jason2002aysonsamsung</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">dumpjayr7@gmail.com</span>
+      <span class="email-pass">jasondump019</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">jim109082@gmail.com</span>
+      <span class="email-pass">lelelolo</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">jim109083@gmail.com</span>
+      <span class="email-pass">lololele</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">jimmercado679@gmail.com</span>
+      <span class="email-pass">lolalele / jimmymercado</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">jimmygrcln@gmalil.com</span>
+      <span class="email-pass">forbckupjimmymrcd0</span>
+    </div>
+    <div class="email-row">
+      <span class="email-addr">grcljimmy@gmail.com</span>
+      <span class="email-pass">forbckupjimmymrcdo</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ SPXI ══════════════ -->
+  <div class="section-title">SPXI</div>
+
+  <div class="account-card">
+    <div class="account-name">jdaysonjr</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">Jdaysonjr1@</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ APPLE ══════════════ -->
+  <div class="section-title">Apple</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">CxF#E4.RscDq+TL</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ SAMSUNG ══════════════ -->
+  <div class="section-title">Samsung</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">jasondaysonjayr@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jaysonsamsungs24@18delrosario</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ VIVO ══════════════ -->
+  <div class="section-title">Vivo</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jayr011908</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ TWITTER X ══════════════ -->
+  <div class="section-title">TwitterX</div>
+
+  <div class="account-card">
+    <div class="account-name">@Jim109081</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">lelelola</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">@sunsets0n</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">areshgr33kg00d</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">@jayrmrcdo109083</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">lolalele</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">@juzzts0n</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">lelolala</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">@jmsxvx</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">@nother4bcku9n!jason</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-name">@jst3r9</div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jesternijason</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ MICROSOFT ══════════════ -->
+  <div class="section-title">Microsoft</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jayr@19xb0xminecraft</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ WATTPAD ══════════════ -->
+  <div class="section-title">Wattpad</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">aysonjrd</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ DISCORD ══════════════ -->
+  <div class="section-title">Discord</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">jayr2642</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Email</span>
+      <span class="field-value">jayr019081@gmail.com</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">jayR</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jasononlyme</span>
+    </div>
+  </div>
+  
+  <!-- ══════════════ LSPG ══════════════ -->
+  <div class="section-title">LSPG</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">Jim109081</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Email</span>
+      <span class="field-value">jayr109081@gmail.com</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ TWITCH ══════════════ -->
+  <div class="section-title">Twitch</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">jayr1319</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jason61235jr9027</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ WPS OFFICE ══════════════ -->
+  <div class="section-title">WPS Office</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">jayr019081@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">Le647466456@</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ NETFLIX ══════════════ -->
+  <div class="section-title">Netflix</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jasonjr19</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ AMAZON ══════════════ -->
+  <div class="section-title">Amazon</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jasonamazonjr / jasonamazonacc</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ LOCKET ══════════════ -->
+  <div class="section-title">Locket</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jasonlocket147</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ PINTEREST ══════════════ -->
+  <div class="section-title">Pinterest</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jasondelrosario</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjasonjr467@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">—</span>
+    </div>
+  </div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason19@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">—</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ CAMWHORES ══════════════ -->
+  <div class="section-title">Camwhores</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">me48103</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jason12345</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ SNAPCHAT ══════════════ -->
+  <div class="section-title">Snapchat</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">aysonjason26@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">aysonjayr123</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ ROBLOX ══════════════ -->
+  <div class="section-title">Roblox</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">lzrd_j</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jasonbutiki</span>
+    </div>
+  </div>
+
+  <!-- ══════════════ BOYFRIENDTV ══════════════ -->
+  <div class="section-title">Boyfriendtv</div>
+
+  <div class="account-card">
+    <div class="field">
+      <span class="field-label">Account</span>
+      <span class="field-value">dumpjayr7@gmail.com</span>
+    </div>
+    <div class="field">
+      <span class="field-label">Password</span>
+      <span class="field-value password">jasonbfporn</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
